@@ -1,0 +1,49 @@
+name: Build and Unit Tests
+
+on: [push, pull_request]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Clone notus-qml-lsp
+        run: |
+          git clone https://github.com/notus-qml/notus-qml-lsp.git ../notus-qml-lsp
+          cd ../notus-qml-lsp
+          npm install
+          npm run build
+          npm link
+
+      - name: Clone tree-sitter-qmljs
+        run: |
+          git clone https://github.com/luizh3/tree-sitter-qmljs.git ../tree-sitter-qmljs
+          cd ../tree-sitter-qmljs
+          node-gyp clean
+          node-gyp configure
+          node-gyp build
+          npm link
+
+      - name: Link shared packages
+        run: |
+          npm link notus-qml-core
+          npm link notus-qml-types
+          npm link notus-qml-test
+          npm link tree-sitter-qmljs
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Run tests
+        run: npm run test
