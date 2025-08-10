@@ -1,11 +1,15 @@
 import { DiagnosticReportContext, CodeAnalyzer, RegexRunnerMatch } from "notus-qml-core";
 import { DiagnosticSeverity } from "notus-qml-types";
 
+interface Params {
+    nrLinesAcceptable?: number
+}
+
 module.exports = {
     handlers: {
         'anonymous-function-acceptable-size': {
             create: (context: DiagnosticReportContext) => ({
-                _: (codeAnalyzer: CodeAnalyzer) => {
+                _: (codeAnalyzer: CodeAnalyzer, { nrLinesAcceptable = 4 }: Params = {}) => {
 
                     // () => {}
                     // : {}
@@ -13,8 +17,6 @@ module.exports = {
                     const identifyFunctionsRegex = /on\w+\s*:\s*(?:function\s*\([^)]*\)\s*|\([^)]*\)\s*=>\s*)?\{[\s\S]*?\}/g;
 
                     const matchs = codeAnalyzer.regexRunner.run(identifyFunctionsRegex);
-
-                    const nrLinesAcceptable = 4;
 
                     matchs.forEach((regexRunner: RegexRunnerMatch) => {
 
