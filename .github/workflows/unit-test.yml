@@ -33,8 +33,10 @@ jobs:
           git clone https://github.com/notus-qml/notus-qml-lsp.git ../notus-qml-lsp
           pushd ../notus-qml-lsp
           npm install
-          pushd server
+          pushd server/packages/notus-qml-core
           npm link tree-sitter-qmljs
+          popd
+          pushd server
           npm install
           npm run build
           popd
