@@ -24,6 +24,7 @@ jobs:
           pushd ../notus-qml-lsp
           npm install
           pushd server
+          npm install
           npm run build
           popd
           npm link
