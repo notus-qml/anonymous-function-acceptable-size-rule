@@ -21,9 +21,11 @@ jobs:
       - name: Clone notus-qml-lsp
         run: |
           git clone https://github.com/notus-qml/notus-qml-lsp.git ../notus-qml-lsp
-          pushd ../notus-qml-lsp/server
+          pushd ../notus-qml-lsp
           npm install
+          pushd server
           npm run build
+          popd
           npm link
           popd
 
