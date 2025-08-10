@@ -22,7 +22,6 @@ jobs:
         run: |
           git clone https://github.com/luizh3/tree-sitter-qmljs.git ../tree-sitter-qmljs
           pushd ../tree-sitter-qmljs
-          npm install
           node-gyp clean
           node-gyp configure
           node-gyp build
