@@ -20,6 +20,7 @@ jobs:
 
       - name: Clone notus-qml-lsp
         run: |
+          git clone https://github.com/notus-qml/notus-qml-lsp.git ../notus-qml-lsp
           pushd ../notus-qml-lsp
           npm install
           npm run build
@@ -28,6 +29,7 @@ jobs:
 
       - name: Clone tree-sitter-qmljs
         run: |
+          git clone https://github.com/luizh3/tree-sitter-qmljs.git ../tree-sitter-qmljs
           pushd ../tree-sitter-qmljs
           npm install
           node-gyp clean
